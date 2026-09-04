@@ -33,7 +33,8 @@ A estrutura do sistema é modular e escalável, permitindo expansões futuras co
 - [Node.js](https://nodejs.org) – Ambiente de execução JavaScript
 - [Express.js](https://expressjs.com) – Framework web minimalista
 - [Prisma ORM](https://www.prisma.io) – ORM moderno e tipado
-- [Supabase](https://supabase.com) – Plataforma como serviço (PaaS) com PostgreSQL
+- [PostgreSQL 16](https://www.postgresql.org) – Banco de dados relacional, rodando em container
+- [Docker Compose](https://docs.docker.com/compose/) – Ambiente de banco idêntico para toda a equipe
 - [Dotenv](https://www.npmjs.com/package/dotenv) – Variáveis de ambiente
 
 ### 🎨 Frontend
@@ -45,10 +46,19 @@ A estrutura do sistema é modular e escalável, permitindo expansões futuras co
 
 ## 📥 Instalação
 
+O projeto roda **100% local**: o banco de dados sobe em um container Docker, sem
+depender de serviços na nuvem.
+
+> 📘 **Primeira vez configurando a máquina?** Siga o guia completo em
+> **[docs/AMBIENTE-LOCAL.md](docs/AMBIENTE-LOCAL.md)** — ele cobre a instalação
+> do Docker passo a passo no **macOS**, **Linux Mint** e **Windows**.
+
+O resumo, para quem já tem Node.js 22 e Docker instalados:
+
 ### 1️⃣ Clone o repositório
 ```bash
 git clone https://github.com/SAGA-TCC/SAGA.git
-cd SAGA
+cd SAGA/Back-end
 ```
 
 ### 2️⃣ Instale as dependências
@@ -57,30 +67,53 @@ npm install
 ```
 
 ### 3️⃣ Configure as variáveis de ambiente
-Crie um arquivo `.env` na raiz com as seguintes variáveis:
-
-```env
-DATABASE_URL="sua-url-do-banco-de-dados"
-PORT=3000
+```bash
+cp .env.example .env     # no Windows: copy .env.example .env
 ```
 
-> ⚠️ **Atenção:** A URL do Supabase pode ser obtida diretamente na dashboard do seu projeto.
+Os valores já vêm prontos para o ambiente local. Só gere um `JWT_SECRET` próprio:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
 
 ---
 
 ## 🚀 Como Rodar o Projeto
 
+### 🐳 Banco de dados
+```bash
+docker compose up -d      # sobe o PostgreSQL 16 em container
+npx prisma migrate dev    # cria as tabelas
+```
+
 ### 🔌 Backend (API REST)
 ```bash
-npx prisma generate
-npx prisma migrate dev --name init
 npm run dev
 ```
 
-Servidor disponível em: `http://localhost:3000`
+Servidor disponível em: `http://localhost:3000` (teste com `/health`).
+
+### 👤 Primeiro acesso
+
+O banco novo vem vazio e todas as telas exigem login. Crie a primeira secretaria
+pela API — é a única rota aberta, feita para esse bootstrap:
+
+```bash
+curl -X POST http://localhost:3000/sec/cadSecretaria \
+  -H "Content-Type: application/json" \
+  -d '{"nome":"Secretaria Teste","email":"secretaria@saga.local","senha":"senha123","dt_nasc":"2000-01-15T00:00:00.000Z","telefone":"11999990000","cpf":"00000000191","ft_perfil":""}'
+```
+
+Depois é só logar com `secretaria@saga.local` / `senha123`.
 
 ### 🌐 Frontend
-Abra o arquivo `index.html` localizado na pasta `login/` no seu navegador ou utilize um servidor como o [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (VSCode).
+Abra a pasta `Front-End` no VSCode e inicie o `index.html` com o
+[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
+
+> ⚠️ O front precisa ser servido em `http://127.0.0.1:5500` — esse endereço está
+> fixo na configuração de CORS do backend. Abrir o arquivo direto pelo navegador
+> (`file://`) não funciona.
 
 ---
 

@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:16
+    container_name: saga-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-saga}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-saga}
+      POSTGRES_DB: ${POSTGRES_DB:-saga}
+      # Cria o banco com collation pt-BR via ICU. Sem isso, "ORDER BY nome"
+      # joga nomes acentuados para o fim da lista (Etica depois de Zoologia),
+      # o que aparece na listagem de materias e de alunos.
+      # O resultado e identico nos tres sistemas operacionais.
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale-provider=icu --icu-locale=pt-BR --locale=en_US.utf8"
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - saga-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-saga} -d ${POSTGRES_DB:-saga}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  saga-pgdata:

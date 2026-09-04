@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { tokenAuthenticate } from "../middlewares/authenticate.js";
-import AlunoController from "../controller/alunoController.js";
+import { AlunoController } from "../controller/alunoController.js";
 
 export const routerAluno = new Router();
 const alunoController = new AlunoController();
