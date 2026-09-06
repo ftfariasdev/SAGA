@@ -164,7 +164,7 @@ async function excluir(id_user) {
             // Tenta converter para JSON se possível
             const errorData = JSON.parse(text);
             throw new Error(`Erro ${response.status}: ${errorData.message || text}`);
-          } catch (e) {
+          } catch {
             // Se não for JSON válido, usa o texto como está
             throw new Error(`Erro ${response.status}: ${text || 'Sem detalhes do servidor'}`);
           }
@@ -179,7 +179,7 @@ async function excluir(id_user) {
         return null; // Retorna null quando não há JSON na resposta
       }
     })
-    .then((data) => {
+    .then(() => {
       mostrarModal('Usuário excluído com sucesso!', () => {
         // Recarrega a página para atualizar a lista somente após clicar em OK
         window.location.reload();
@@ -211,3 +211,5 @@ function searchFunction() {
     }
   }
 }
+// Exposta em window pois é chamada via onkeyup no HTML
+window.searchFunction = searchFunction;

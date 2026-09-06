@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tableBody.innerHTML =
           "<tr><td colspan='4'>Nenhuma matéria encontrada para este bimestre.</td></tr>";
       }
-    } catch (err) {
+    } catch {
       tableBody.innerHTML = `<tr><td colspan='4'>Erro ao carregar dados.</td></tr>`;
     }
   }

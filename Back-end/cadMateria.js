@@ -1,5 +1,7 @@
 // Função cadMateria corrigida
 
+import prisma from './src/util/prisma.js';
+
 export async function cadMateria(req, res) {
   try {
     const { id_curso } = req.params;

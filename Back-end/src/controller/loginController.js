@@ -45,7 +45,7 @@ export class LoginController {
         idToken: id_token,
         audience: process.env.GOOGLE_CLIENT_ID
       });
-    } catch (err) {
+    } catch {
       return res.status(401).json({ error: 'Token do Google inválido' });
     }
 

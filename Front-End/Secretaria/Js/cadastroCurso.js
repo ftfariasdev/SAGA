@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Erro ao cadastrar curso');
       }
 
-      const result = await response.json();
       mostrarModal('Curso cadastrado com sucesso!');
     } catch (error) {
       console.error('Erro:', error);

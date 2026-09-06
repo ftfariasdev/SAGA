@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (!resp.ok) throw new Error();
     const prof = await resp.json();
     id_professor = prof.id_professor;
-  } catch (e) {
+  } catch {
     await mostrarModal('Erro ao buscar professor.');
     return;
   } // Busca alunos da turma
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           });
         }
       }
-    } catch (error) {
+    } catch {
       console.log('Nenhuma chamada existente encontrada para esta data');
     }
   }

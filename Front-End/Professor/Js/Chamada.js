@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (!resp.ok) throw new Error();
     const prof = await resp.json();
     id_professor = prof.id_professor;
-  } catch (e) {
+  } catch {
     mostrarModal('Erro ao buscar professor.');
     return;
   }
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       headers: { Authorization: `Bearer ${token}` }
     });
     turmas = await turmasResp.json();
-  } catch (e) {
+  } catch {
     mostrarModal('Erro ao buscar turmas.');
     return;
   }
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       headers: { Authorization: `Bearer ${token}` }
     });
     materias = await materiasResp.json();
-  } catch (e) {
+  } catch {
     mostrarModal('Erro ao buscar matérias.');
     return;
   }

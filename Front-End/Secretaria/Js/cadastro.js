@@ -44,17 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Campos adicionais para aluno (apenas necessário para tipo 3 - Aluno)
-  const camposAdicionaisAluno = `
-        <div class="input-group half-width turma-field">
-            <label for="id_turma">Turma:</label>
-            <select id="id_turma">
-                <option value="">Selecione uma turma</option>
-                <!-- As turmas serão carregadas dinamicamente -->
-            </select>
-        </div>
-    `;
-
   // Função para carregar turmas disponíveis (apenas para alunos)
   async function carregarTurmas() {
     try {

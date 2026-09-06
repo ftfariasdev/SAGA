@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const materiaId = params.get('id'); // Elementos do formulário
   const nomeDisciplina = document.getElementById('nomeDisciplina');
   const cargaHoraria = document.getElementById('cargaHorariaDisc');
-  const serie = document.getElementById('serieDisciplina');
   const frequencia = document.getElementById('frequenciaDisciplina');
   const descricao = document.getElementById('descricaoDisciplina');
   const cursoDisciplina = document.getElementById('cursoDisciplina');

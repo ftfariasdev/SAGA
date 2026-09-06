@@ -1,27 +1,27 @@
+function mostrarModal(mensagem) {
+  const antigo = document.querySelector('.modal-overlay');
+  if (antigo) antigo.remove();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+
+  const box = document.createElement('div');
+  box.className = 'modal-box';
+
+  const texto = document.createElement('p');
+  texto.innerText = mensagem;
+
+  const botao = document.createElement('button');
+  botao.innerText = 'OK';
+  botao.onclick = () => overlay.remove();
+
+  box.appendChild(texto);
+  box.appendChild(botao);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
-  function mostrarModal(mensagem) {
-    const antigo = document.querySelector('.modal-overlay');
-    if (antigo) antigo.remove();
-
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-
-    const box = document.createElement('div');
-    box.className = 'modal-box';
-
-    const texto = document.createElement('p');
-    texto.innerText = mensagem;
-
-    const botao = document.createElement('button');
-    botao.innerText = 'OK';
-    botao.onclick = () => overlay.remove();
-
-    box.appendChild(texto);
-    box.appendChild(botao);
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
-  }
-
   // Verificar a autenticação
   const token = localStorage.getItem('token');
   if (!token) {
@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Elementos da interface
   const loadingIndicator = document.getElementById('loading-indicator');
   const turmaDetalhes = document.getElementById('turma-detalhes');
-  const turmaTitulo = document.getElementById('turma-titulo');
 
   // Inicializar as abas
   inicializarAbas();

@@ -1,7 +1,5 @@
 import { Router } from 'express';
-import { LoginController } from '../controller/loginController.js';
 import { tokenAuthenticate } from '../middlewares/authenticate.js';
-import { SecController } from '../controller/secController.js';
 import { ProfController } from '../controller/profController.js';
 
 export const routerProf = new Router();

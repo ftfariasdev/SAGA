@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             weight: 'bold',
             size: 18
           },
-          formatter: (value, context) => value + '%'
+          formatter: (value) => value + '%'
         }
       }
     },
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       // Aqui você pode calcular a frequência geral e atualizar o gráfico
       // Exemplo: atualizar o gráfico com os dados reais
     });

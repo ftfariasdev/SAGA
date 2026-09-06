@@ -377,7 +377,7 @@ export class ProfController {
         if (valor < 0 || valor > 10) {
           return res.status(400).json({ erro: 'Valor da nota deve estar entre 0 e 10.' });
         } // Criar nova nota
-        const novaNota = await prisma.nota.create({
+        await prisma.nota.create({
           data: {
             id_professor: professor.id_professor,
             id_turma,

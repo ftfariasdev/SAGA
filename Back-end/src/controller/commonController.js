@@ -71,7 +71,7 @@ export class commonController {
           if (isNaN(updateData.dt_nasc.getTime())) {
             return res.status(400).json({ message: 'Data de nascimento inválida' });
           }
-        } catch (error) {
+        } catch {
           return res.status(400).json({ message: 'Data de nascimento em formato inválido' });
         }
       }

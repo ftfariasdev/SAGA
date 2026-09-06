@@ -46,8 +46,8 @@ async function buscarInformacoesUsuario() {
     document.getElementById('cpf').value = data.cpf || '';
 
     // Aplicar máscaras após carregar os dados
-    if (typeof aplicarMascarasAposDados === 'function') {
-      aplicarMascarasAposDados();
+    if (typeof window.aplicarMascarasAposDados === 'function') {
+      window.aplicarMascarasAposDados();
     }
   } catch (error) {
     console.error('Erro:', error);

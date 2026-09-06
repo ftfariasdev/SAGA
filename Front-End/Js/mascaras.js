@@ -81,16 +81,6 @@ function aplicarMascaraTelefone(campo) {
   });
 }
 
-// Função para obter valor limpo do CPF (apenas números)
-function obterCPFLimpo(valorComMascara) {
-  return valorComMascara.replace(/\D/g, '');
-}
-
-// Função para obter valor limpo do telefone (apenas números)
-function obterTelefoneLimpo(valorComMascara) {
-  return valorComMascara.replace(/\D/g, '');
-}
-
 // Função para inicializar máscaras automaticamente
 function inicializarMascaras() {
   // Aplica máscara nos campos de CPF
@@ -103,10 +93,11 @@ function inicializarMascaras() {
 }
 
 // Função para aplicar máscaras após carregamento de dados via AJAX
+// Exposta em window pois é chamada a partir de outros arquivos de página (script separado)
 function aplicarMascarasAposDados() {
-  // Esta função pode ser chamada após carregar dados do servidor
   inicializarMascaras();
 }
+window.aplicarMascarasAposDados = aplicarMascarasAposDados;
 
 // Inicializa as máscaras quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', inicializarMascaras);

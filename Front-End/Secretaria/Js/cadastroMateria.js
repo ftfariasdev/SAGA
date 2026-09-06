@@ -148,7 +148,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         throw new Error('Erro ao cadastrar matéria');
       }
 
-      const result = await response.json();
       mostrarModal('Matéria cadastrada com sucesso!');
       form.reset();
     } catch (error) {

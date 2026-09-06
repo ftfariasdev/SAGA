@@ -37,12 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       // Verificar conexão com o servidor antes da requisição principal
-      const testConnection = await fetch('http://localhost:8081/health', {
+      await fetch('http://localhost:8081/health', {
         method: 'GET',
         mode: 'cors',
         cache: 'no-cache',
         timeout: 5000 // timeout de 5 segundos
-      }).catch((error) => {
+      }).catch(() => {
         throw new Error('Servidor não está respondendo. Verifique se o backend está rodando.');
       });
 
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.onload = function () {
     google.accounts.id.initialize({
       client_id: '893107006356-bsmaaq8od6hoi8b9vn92mof6i84gdf2k.apps.googleusercontent.com',
-      callback: handleGoogleCredentialResponse
+      callback: window.handleGoogleCredentialResponse
     });
     google.accounts.id.renderButton(document.getElementById('googleSignInBtn'), {
       theme: 'outline',

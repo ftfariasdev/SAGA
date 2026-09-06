@@ -146,3 +146,5 @@ function searchFunction() {
     }
   }
 }
+// Exposta em window pois é chamada via onkeyup no HTML
+window.searchFunction = searchFunction;

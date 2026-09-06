@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${materia.ch_total || ''}</td>
                 <td>${materia.freq_min || ''}</td>
                 <td>${materia.curso_nome || 'N/A'}</td>
-                
+                <td>${nomeProfessor}</td>
                 <td>
                     <a href="editarMateria.html?id=${materia.id_materia}">
                         <button class="editar">Editar</button>

@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
 
       return token;
-    } catch (error) {
+    } catch {
       mostrarErroConexao(
         'Erro de autenticação',
         'Sua sessão expirou ou é inválida. Por favor, faça login novamente.'

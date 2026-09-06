@@ -235,31 +235,9 @@ document.addEventListener('DOMContentLoaded', async function () {
           }
         });
 
-        // Carregar turmas já associadas ao professor
-        const turmasProfessorResponse = await fetch(
-          `http://localhost:8081/sec/listarTurmasProfessor/${id_user}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + token
-            }
-          }
-        ).catch((error) => {
-          console.warn('Não foi possível carregar turmas do professor:', error);
-          return { ok: false };
-        });
-
         if (!professorResponse.ok) {
           console.warn('Não foi possível carregar dados adicionais do professor');
         } else {
-          const professorData = await professorResponse.json();
-          let turmasAssociadas = [];
-
-          if (turmasProfessorResponse && turmasProfessorResponse.ok) {
-            turmasAssociadas = await turmasProfessorResponse.json();
-          }
-
           // Construir HTML base para os campos específicos de professor
           let htmlCampos = `
                     <div class="input-group half-width" style="visibility: hidden;">
@@ -275,11 +253,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
           // Adicionar seleção de turmas se disponível
           if (turmasResponse.ok) {
-            const turmas = await turmasResponse.json();
-
             // Criar div para seleção de turmas
             htmlCampos += `
-                        
+
                         `;
           }
 
@@ -302,8 +278,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!secretariaResponse.ok) {
           console.warn('Não foi possível carregar dados adicionais da secretaria');
         } else {
-          const secretariaData = await secretariaResponse.json();
-
           // Campos específicos de secretaria
           containerCampos.innerHTML = `
 
@@ -342,8 +316,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('cpf').value = usuario.cpf || '';
 
     // Aplicar máscaras após carregar os dados
-    if (typeof aplicarMascarasAposDados === 'function') {
-      aplicarMascarasAposDados();
+    if (typeof window.aplicarMascarasAposDados === 'function') {
+      window.aplicarMascarasAposDados();
     }
 
     // Formata a data de nascimento para o input datetime-local
@@ -526,7 +500,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           if (errorData.detalhes) {
             errorMessage += ` - ${errorData.detalhes}`;
           }
-        } catch (e) {
+        } catch {
           errorMessage += `: ${responseText || 'Sem detalhes disponíveis'}`;
         }
 
