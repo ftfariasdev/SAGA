@@ -1,0 +1,30 @@
+name: Prettier Check
+
+# When execute this Workflow
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  prettier:
+    name: Run Prettier
+    runs-on: ubuntu-latest
+    
+    steps:
+        # Update the code in VM 
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-node: '20' # Version for Node.js
+          cache: 'npm' # Actvate the cache for next workflows 
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Prettier Check
+        run: npm run format:check
