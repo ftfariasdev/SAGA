@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // Busca o id_professor pelo id_user
-  let id_professor = null;
+  let id_professor;
   try {
     const resp = await fetch(`http://localhost:8081/professor/user/${id_user}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // Busca as turmas do professor
-  let turmas = [];
+  let turmas;
   try {
     const turmasResp = await fetch(`http://localhost:8081/prof/turmas/${id_professor}`, {
       headers: { Authorization: `Bearer ${token}` }

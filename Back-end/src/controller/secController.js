@@ -214,43 +214,6 @@ export class SecController {
     return res.status(204).json(materia);
   }
 
-  // Lista todos os professores disponíveis para vinculação
-  async listarProfessores(req, res) {
-    try {
-      const professores = await prisma.professor.findMany({
-        include: {
-          user: {
-            select: {
-              id_user: true,
-              nome: true,
-              email: true,
-              telefone: true,
-              ft_perfil: true
-            }
-          }
-        }
-      });
-
-      // Formatar os dados para facilitar o uso no frontend
-      const professoresFormatados = professores.map((prof) => ({
-        id_professor: prof.id_professor,
-        id_user: prof.user.id_user,
-        nome: prof.user.nome,
-        email: prof.user.email,
-        telefone: prof.user.telefone,
-        foto: prof.user.ft_perfil
-      }));
-
-      return res.status(200).json(professoresFormatados);
-    } catch (error) {
-      console.error('Erro ao listar professores:', error);
-      return res.status(500).json({
-        erro: 'Erro ao listar professores',
-        detalhes: error.message
-      });
-    }
-  }
-
   // => Usuario
 
   async criarUsuario(req, res) {
@@ -275,7 +238,6 @@ export class SecController {
         tipo
       }
     });
-    console.log('Cadastro concluido com sucesso');
     return res.json({ message: 'Cadastro concluido com sucesso' });
   }
 
@@ -325,7 +287,6 @@ export class SecController {
         }
       });
 
-      console.log('Cadastro de aluno concluído com sucesso');
       return res.json({ message: 'Cadastro de aluno concluído com sucesso' });
     } catch (error) {
       console.error('Erro ao cadastrar aluno:', error);
@@ -381,7 +342,6 @@ export class SecController {
         }
       });
 
-      console.log('Cadastro de professor concluído com sucesso');
       return res.json({ message: 'Cadastro de professor concluído com sucesso' });
     } catch (error) {
       console.error('Erro ao cadastrar professor:', error);
@@ -437,7 +397,6 @@ export class SecController {
           id_user: user.id_user
         }
       });
-      console.log('Cadastro de secretaria concluído com sucesso');
       return res.json({ message: 'Cadastro de secretaria concluído com sucesso' });
     } catch (error) {
       console.error('Erro ao cadastrar secretaria:', error);

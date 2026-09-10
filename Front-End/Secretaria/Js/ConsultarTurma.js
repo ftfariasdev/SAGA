@@ -83,7 +83,7 @@ async function buscarDetalhesTurma(idTurma, token) {
     throw new Error(`Erro ao buscar detalhes da turma: ${response.status}`);
   }
 
-  return await response.json();
+  return response.json();
 }
 
 /**

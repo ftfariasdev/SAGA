@@ -23,7 +23,6 @@ function mostrarModal(mensagem) {
 
 // Função para verificar o token
 function verificaToken() {
-  console.log('Verificando token armazenado...');
   const token = localStorage.getItem('token');
 
   if (!token) {
@@ -32,12 +31,6 @@ function verificaToken() {
     window.location.href = '../../Login/Login.html';
     return;
   }
-
-  console.log('Token encontrado:', token.substring(0, 15) + '...');
-
-  // Log de outros dados importantes no localStorage
-  const userId = localStorage.getItem('id_user') || localStorage.getItem('userId');
-  console.log('ID do usuário no localStorage:', userId);
 
   // Se tivermos 'id_user' mas não 'userId', vamos padronizar
   if (localStorage.getItem('id_user') && !localStorage.getItem('userId')) {
@@ -52,8 +45,6 @@ function verificaToken() {
     }
   })
     .then((response) => {
-      console.log('Resposta da verificação do token:', response.status, response.statusText);
-
       if (!response.ok) {
         if (response.status === 401) {
           console.error('Token expirado ou inválido (401 Unauthorized)');
@@ -69,8 +60,6 @@ function verificaToken() {
           );
           throw new Error(`Falha na verificação do token: ${response.status}`);
         }
-      } else {
-        console.log('Token válido, usuário autenticado com sucesso');
       }
     })
     .catch((error) => {

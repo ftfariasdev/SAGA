@@ -35,14 +35,6 @@ export class commonController {
   async editarInfo(req, res) {
     const { id_user, nome, email, dt_nasc, telefone, ft_perfil } = req.body;
 
-    console.log('Solicitação de atualização recebida:', {
-      id_user,
-      nome,
-      email,
-      dt_nasc,
-      telefone
-    });
-
     try {
       // Validação dos dados recebidos
       if (!id_user) {
@@ -100,15 +92,11 @@ export class commonController {
         updateData.ft_perfil = ft_perfil;
       }
 
-      console.log('Dados para atualização:', updateData);
-
       // Atualizar o usuário
       const updatedUser = await prisma.user.update({
         where: { id_user },
         data: updateData
       });
-
-      console.log('Usuário atualizado com sucesso:', updatedUser.id_user);
 
       // Sanitizar a resposta
       const sanitizedUser = {

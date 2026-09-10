@@ -127,7 +127,6 @@ function editar(id_user) {
   // Redireciona para página de edição com o id_user do usuário
   // Usamos encodeURIComponent para garantir que o id_user seja seguro na URL
   window.location.href = `editarUsuario.html?id_user=${encodeURIComponent(id_user)}`;
-  console.log(`Redirecionando para edição do usuário: ${id_user}`);
 }
 
 // Função de exclusão
@@ -144,8 +143,6 @@ async function excluir(id_user) {
   if (!confirmado) {
     return;
   }
-
-  console.log(`Tentando excluir usuário com ID: ${id_user}`);
 
   fetch(`http://localhost:8081/sec/excluirUsuario/${id_user}`, {
     method: 'DELETE',

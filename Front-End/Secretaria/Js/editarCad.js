@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Extrai o ID da URL
   const params = new URLSearchParams(window.location.search);
   const id_usuario = params.get('id_user');
-  console.log('URL atual:', window.location.href); // Log da URL completa
-  console.log('ID do usuário extraído da URL:', id_usuario);
+  // Log da URL completa
 
   if (!id_usuario) {
     mostrarModal('ID do usuário não encontrado na URL.');
@@ -91,9 +90,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         const optimizedImage = canvas.toDataURL('image/jpeg', quality);
 
         // Log para debug
-        console.log(
-          `Imagem original: ~${originalSizeKB}KB, Imagem otimizada: ~${Math.round(optimizedImage.length / 1024)}KB`
-        );
 
         resolve(optimizedImage);
       };
@@ -108,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     fileInput.type = 'file';
     fileInput.accept = 'image/*';
 
-    fileInput.addEventListener('change', async function (e) {
+    fileInput.addEventListener('change', function (e) {
       const file = e.target.files[0];
       if (!file) return;
 
@@ -345,10 +341,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Captura o evento de envio do formulário
   document.getElementById('form-editar-usuario').addEventListener('submit', async function (event) {
     event.preventDefault();
-    console.log('Formulário enviado');
 
     const id_usuario = new URLSearchParams(window.location.search).get('id_user');
-    console.log('ID do usuário no envio do formulário:', id_usuario);
 
     if (!id_usuario) {
       mostrarModal('ID do usuário não encontrado na URL.');
@@ -475,8 +469,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     }
 
-    console.log('Dados a serem enviados:', dadosParaEnviar);
-
     try {
       const response = await fetch(`http://localhost:8081/sec/editarUsuario/${id_usuario}`, {
         method: 'PUT',
@@ -486,8 +478,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         },
         body: JSON.stringify(dadosParaEnviar)
       });
-
-      console.log('Status da resposta:', response.status);
 
       if (!response.ok) {
         const responseText = await response.text();

@@ -6,44 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const photoUploadButton = document.querySelector('.profile-photo button');
   let fotoPerfilBase64 = ''; // Variável para armazenar a foto em base64
 
-  // Função para redimensionar e otimizar imagem
-  async function resizeImage(base64Str, maxWidth = 400, maxHeight = 400, quality = 0.7) {
-    return new Promise((resolve) => {
-      // Criar uma imagem a partir do base64
-      const img = new Image();
-      img.src = base64Str;
-
-      img.onload = function () {
-        // Calcular dimensões proporcionais
-        let width = img.width;
-        let height = img.height;
-
-        if (width > maxWidth) {
-          height = Math.round((height * maxWidth) / width);
-          width = maxWidth;
-        }
-
-        if (height > maxHeight) {
-          width = Math.round((width * maxHeight) / height);
-          height = maxHeight;
-        }
-
-        // Criar canvas para redimensionar
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-
-        // Desenhar imagem redimensionada
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-
-        // Converter para base64 com qualidade reduzida
-        const newBase64 = canvas.toDataURL('image/jpeg', quality);
-        resolve(newBase64);
-      };
-    });
-  }
-
   // Função para carregar turmas disponíveis (apenas para alunos)
   async function carregarTurmas() {
     try {
@@ -194,9 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const optimizedImage = canvas.toDataURL('image/jpeg', quality);
 
         // Log para debug
-        console.log(
-          `Imagem original: ~${originalSizeKB}KB, Imagem otimizada: ~${Math.round(optimizedImage.length / 1024)}KB`
-        );
 
         resolve(optimizedImage);
       };
@@ -210,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fileInput.type = 'file';
     fileInput.accept = 'image/*';
 
-    fileInput.addEventListener('change', async function (e) {
+    fileInput.addEventListener('change', function (e) {
       const file = e.target.files[0];
       if (!file) return;
 
@@ -236,10 +195,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Armazenar a imagem em base64
         fotoPerfilBase64 = resizedImage;
-
-        console.log(
-          `Tamanho da imagem após otimização: ~${Math.round(resizedImage.length / 1024)}KB`
-        );
       };
 
       reader.readAsDataURL(file);
@@ -331,9 +286,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (requiresToken) {
         headers['Authorization'] = 'Bearer ' + token;
       }
-
-      console.log('Enviando dados:', dadosParaEnviar);
-      console.log('Endpoint:', endpoint);
 
       // Enviar requisição para a API
       const response = await fetch(endpoint, {

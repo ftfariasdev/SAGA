@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.getElementById('ListaCursosTableBody');
   const searchInput = document.querySelector('.search-box input');
   let cursos = [];

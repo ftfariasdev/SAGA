@@ -29,7 +29,6 @@ export class LoginController {
     const emailDoBanco = userExists.email;
     const ft_perfil = userExists.ft_perfil || '';
 
-    console.log('Logado com sucesso!');
     return res.json({ token, tipo, id_user, nome, emailDoBanco, ft_perfil });
   }
 

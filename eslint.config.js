@@ -25,6 +25,14 @@ export default [
     }
   },
   {
+    // Entrypoint do servidor e scripts de manutenção rodados via CLI:
+    // a saída no console é a interface deles, não log de debug.
+    files: ['Back-end/server.js', 'Back-end/fixMateria.js', 'Back-end/sync_professores_turmas.js'],
+    rules: {
+      'no-console': 'off'
+    }
+  },
+  {
     files: ['Front-End/**/*.js'],
     languageOptions: {
       globals: globals.browser

@@ -4,7 +4,6 @@ if (navigator.serviceWorker) {
     for (let registration of registrations) {
       registration.unregister();
     }
-    console.log('Service Workers foram desativados para resolver problemas de CORS');
   });
 }
 
@@ -106,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
               window.location.href = '../Aluno/Page/HomeAluno.html';
               break;
             default:
-              console.log('Tipo de usuário recebido:', data.tipo);
               showErrorMessage('Tipo de usuário não reconhecido (código: ' + data.tipo + ')');
               resetLoginButton();
           }

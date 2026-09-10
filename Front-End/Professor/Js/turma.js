@@ -60,7 +60,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     const turmas = await response.json();
-    console.log('Turmas recebidas:', turmas);
 
     // Limpar o conteúdo da tabela antes de adicionar novas linhas
     tableBody.innerHTML = '';

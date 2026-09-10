@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('disciplinaForm');
   const cursosSelect = document.getElementById('cursoDisciplina');
   const professoresSelect = document.getElementById('professorDisciplina');

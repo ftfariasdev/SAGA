@@ -7,11 +7,8 @@ dotenv.config();
 // Obtém o segredo do JWT das variáveis de ambiente
 const JWT_SECRET = process.env.JWT_SECRET || 'sua_chave_secreta_padrao';
 
-export const tokenAuthenticate = async (req, res, next) => {
+export const tokenAuthenticate = (req, res, next) => {
   try {
-    console.log('Verificando autenticação do token...');
-    console.log('URL requisitada:', req.originalUrl);
-
     // Verifica se existe o cabeçalho de autorização
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -26,12 +23,9 @@ export const tokenAuthenticate = async (req, res, next) => {
       return res.status(401).json({ error: 'Formato do token inválido' });
     }
 
-    console.log('Token extraído:', token.substring(0, 10) + '...');
-
     try {
       // Verifica o token
       const decoded = jwt.verify(token, JWT_SECRET);
-      console.log('Token válido para o usuário ID:', decoded.userId);
       // Adiciona o ID do usuário ao objeto request
       req.userId = decoded.userId;
 

@@ -57,7 +57,7 @@ async function carregarCursos() {
     }
 
     const cursos = await response.json();
-    console.log('Cursos recebidos:', cursos); // Adicionando log para debug
+    // Adicionando log para debug
 
     // Limpar opções existentes, exceto a primeira
     while (selectCursos.options.length > 1) {
@@ -66,7 +66,7 @@ async function carregarCursos() {
 
     // Adicionar cursos ao select
     cursos.forEach((curso) => {
-      console.log('Processando curso:', curso); // Log para cada curso
+      // Log para cada curso
       const option = document.createElement('option');
       // Verificando ambas as possibilidades de nome da propriedade do ID
       const cursoId = curso.id_curso;
@@ -113,13 +113,6 @@ async function cadastrarTurma(event) {
 
   const token = localStorage.getItem('token');
   try {
-    console.log('Enviando dados:', {
-      nome: nomeTurma,
-      dt_inicio: dataInicio,
-      semestres: semestres.toString(), // Convertendo para string
-      id_curso: idCurso
-    });
-
     const response = await fetch('http://localhost:8081/sec/Turma/cadastrar', {
       method: 'POST',
       headers: {
@@ -135,7 +128,6 @@ async function cadastrarTurma(event) {
     });
 
     const responseData = await response.json();
-    console.log('Resposta recebida:', responseData);
 
     if (!response.ok) {
       throw new Error(

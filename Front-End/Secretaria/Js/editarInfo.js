@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', function () {
   // Elementos do DOM
   const nomeInput = document.getElementById('nome');
   const nascimentoInput = document.getElementById('nascimento');
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // Função para redimensionar e otimizar imagens
-  async function resizeImage(base64Str, maxWidth = 400, maxHeight = 400, quality = 0.7) {
+  function resizeImage(base64Str, maxWidth = 400, maxHeight = 400, quality = 0.7) {
     return new Promise((resolve) => {
       // Criar uma imagem a partir do base64
       const img = new Image();
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
 
   // Evento para quando uma foto é selecionada
-  photoInput.addEventListener('change', async function () {
+  photoInput.addEventListener('change', function () {
     if (this.files && this.files[0]) {
       const file = this.files[0];
 

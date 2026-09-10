@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('cursoForm');
   const params = new URLSearchParams(window.location.search);
   const cursoId = params.get('id');

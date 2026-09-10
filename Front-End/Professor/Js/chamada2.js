@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Adicionar event listener para quando a data for alterada
   dataChamada.addEventListener('change', function () {
-    console.log('Data alterada para:', this.value);
     // Aqui você pode adicionar lógica adicional se necessário
     // Por exemplo, recarregar dados ou validar a nova data
   });
@@ -80,14 +79,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     await mostrarModal('Erro ao buscar professor.');
     return;
   } // Busca alunos da turma
-  let alunos = [];
+  let alunos;
   try {
     const resp = await fetch(`http://localhost:8081/prof/alunos/${id_turma}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     if (!resp.ok) throw new Error('Resposta não ok');
     alunos = await resp.json();
-    console.log('Alunos carregados:', alunos);
   } catch (e) {
     console.error('Erro ao buscar alunos:', e);
     await mostrarModal('Erro ao buscar alunos da turma.');
@@ -135,8 +133,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     try {
-      console.log('Iniciando lançamento de chamada...');
-
       // Monta array de presenças
       const presencas = [];
       tableBody.querySelectorAll('.status-btn').forEach((btn) => {
@@ -150,12 +146,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
       }
 
-      console.log('Dados para envio:', {
-        id_professor,
-        id_turma,
-        data: dataChamada.value,
-        presencas
-      }); // Desabilita o botão durante o envio
+      // Desabilita o botão durante o envio
       btnLancar.disabled = true;
 
       // Envia chamada para o backend
@@ -197,7 +188,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       if (resp.ok) {
         const chamadaExistente = await resp.json();
-        console.log('Chamada existente encontrada:', chamadaExistente);
 
         // Atualizar os botões de presença com os dados existentes
         if (chamadaExistente.presencas) {
@@ -219,14 +209,13 @@ document.addEventListener('DOMContentLoaded', async function () {
           });
         }
       }
-    } catch {
-      console.log('Nenhuma chamada existente encontrada para esta data');
+    } catch (e) {
+      console.error('Erro ao carregar chamada existente:', e);
     }
   }
 
   // Atualizar event listener para carregar dados quando a data mudar
   dataChamada.addEventListener('change', function () {
-    console.log('Data alterada para:', this.value);
     // Resetar todos os botões para presença (padrão)
     tableBody.querySelectorAll('.status-btn').forEach((btn) => {
       btn.dataset.status = 'P';

@@ -55,8 +55,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const emailUsuario = localStorage.getItem('emailUsuario');
     const fotoPerfilURL = localStorage.getItem('fotoPerfil');
 
-    console.log('Dados do localStorage:', { nomeUsuario, emailUsuario, fotoPerfilURL });
-
     // Atualizar a interface com os dados do localStorage
     if (perfilNome && nomeUsuario) {
       perfilNome.textContent = nomeUsuario.split(' ')[0]; // Apenas o primeiro nome
@@ -83,9 +81,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    console.log('Buscando dados do usuário da API:', userId);
-    console.log('Token:', token);
-
     try {
       // Requisição para obter informações do usuário
       const response = await fetch(`http://localhost:8081/info/${userId}`, {
@@ -101,7 +96,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
       const userData = await response.json();
-      console.log('Dados obtidos da API:', userData);
 
       // Atualizar localStorage com dados completos
       localStorage.setItem('nomeUsuario', userData.nome);

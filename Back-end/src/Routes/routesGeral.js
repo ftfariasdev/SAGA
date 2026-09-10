@@ -10,7 +10,6 @@ const controller = new commonController();
 routerGeral.post('/login', loginController.auth);
 routerGeral.post('/login/google', loginController.authGoogle); // ROTA GOOGLE
 routerGeral.get('/token', tokenAuthenticate, (req, res) => {
-  console.log('Verificação de token bem-sucedida para o usuário ID:', req.userId);
   return res.status(200).json({
     message: 'Token válido',
     userId: req.userId,
