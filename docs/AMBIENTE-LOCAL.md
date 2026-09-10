@@ -42,10 +42,10 @@ Postgres, com o mesmo usuário, a mesma senha e o mesmo schema.
 
 O que você vai instalar:
 
-| Ferramenta | Para quê | Onde |
-|---|---|---|
-| **Git** | Clonar o repositório | Todos |
-| **Node.js 22 LTS** | Rodar a API | Todos |
+| Ferramenta           | Para quê                      | Onde  |
+| -------------------- | ----------------------------- | ----- |
+| **Git**              | Clonar o repositório          | Todos |
+| **Node.js 22 LTS**   | Rodar a API                   | Todos |
 | **Docker + Compose** | Subir o Postgres em container | Todos |
 
 > ℹ️ **Você não precisa instalar o PostgreSQL na sua máquina.** Ele vem dentro
@@ -58,19 +58,19 @@ O que você vai instalar:
 
 ### Git
 
-| Sistema | Comando |
-|---|---|
-| macOS | `brew install git` (ou já vem com o Xcode Command Line Tools) |
-| Linux Mint | `sudo apt install git` |
-| Windows | Baixe em [git-scm.com](https://git-scm.com/download/win) |
+| Sistema    | Comando                                                       |
+| ---------- | ------------------------------------------------------------- |
+| macOS      | `brew install git` (ou já vem com o Xcode Command Line Tools) |
+| Linux Mint | `sudo apt install git`                                        |
+| Windows    | Baixe em [git-scm.com](https://git-scm.com/download/win)      |
 
 ### Node.js 22 LTS
 
-| Sistema | Comando |
-|---|---|
-| macOS | `brew install node@22` |
+| Sistema    | Comando                                                                                            |
+| ---------- | -------------------------------------------------------------------------------------------------- |
+| macOS      | `brew install node@22`                                                                             |
 | Linux Mint | `curl -fsSL https://deb.nodesource.com/setup_22.x \| sudo -E bash - && sudo apt install -y nodejs` |
-| Windows | Baixe o instalador LTS em [nodejs.org](https://nodejs.org) |
+| Windows    | Baixe o instalador LTS em [nodejs.org](https://nodejs.org)                                         |
 
 Confira no fim:
 
@@ -168,7 +168,7 @@ Confira com `docker compose version`.
 docker run --rm hello-world
 ```
 
-Se aparecer *"Hello from Docker!"*, está pronto.
+Se aparecer _"Hello from Docker!"_, está pronto.
 
 ---
 
@@ -244,7 +244,7 @@ Windows). Você precisa dos dois.
 #### 1. Instale o WSL2
 
 Abra o **PowerShell como administrador** (botão direito no menu Iniciar →
-*Terminal (Admin)*) e rode:
+_Terminal (Admin)_) e rode:
 
 ```powershell
 wsl --install
@@ -269,7 +269,7 @@ Baixe em [docker.com/products/docker-desktop](https://www.docker.com/products/do
 e instale mantendo a opção **"Use WSL 2 instead of Hyper-V"** marcada.
 
 Abra o Docker Desktop e espere o ícone da baleia, no canto inferior esquerdo,
-ficar **verde** (*Engine running*). Em *Settings → General*, confirme que
+ficar **verde** (_Engine running_). Em _Settings → General_, confirme que
 **"Start Docker Desktop when you sign in"** está ligado.
 
 > ⚠️ O Docker Desktop precisa estar **aberto** para os comandos funcionarem. Se
@@ -356,7 +356,7 @@ um teste de conexão automático antes de considerar o banco pronto.
 
 ## 6. Criando as tabelas com o Prisma
 
-O banco subiu vazio. As tabelas são criadas pelas *migrations* que já estão
+O banco subiu vazio. As tabelas são criadas pelas _migrations_ que já estão
 versionadas em `Back-end/prisma/migrations/`:
 
 ```bash
@@ -458,19 +458,19 @@ clique com o botão direito em `index.html` → **Open with Live Server**.
 
 Todos rodados de dentro de `SAGA/Back-end`:
 
-| O quê | Comando |
-|---|---|
-| Ligar o banco | `docker compose up -d` |
-| Desligar o banco (mantém os dados) | `docker compose stop` |
-| Remover o container (mantém os dados) | `docker compose down` |
-| **Apagar tudo, inclusive os dados** | `docker compose down -v` |
-| Ver se está rodando | `docker compose ps` |
-| Ver os logs do Postgres | `docker compose logs -f db` |
-| Abrir o `psql` dentro do container | `docker compose exec db psql -U saga -d saga` |
-| Interface visual do banco | `npx prisma studio` |
-| Aplicar migrations novas | `npx prisma migrate dev` |
-| Zerar o banco e recriar tudo | `npx prisma migrate reset` |
-| Rodar a API | `npm run dev` |
+| O quê                                 | Comando                                       |
+| ------------------------------------- | --------------------------------------------- |
+| Ligar o banco                         | `docker compose up -d`                        |
+| Desligar o banco (mantém os dados)    | `docker compose stop`                         |
+| Remover o container (mantém os dados) | `docker compose down`                         |
+| **Apagar tudo, inclusive os dados**   | `docker compose down -v`                      |
+| Ver se está rodando                   | `docker compose ps`                           |
+| Ver os logs do Postgres               | `docker compose logs -f db`                   |
+| Abrir o `psql` dentro do container    | `docker compose exec db psql -U saga -d saga` |
+| Interface visual do banco             | `npx prisma studio`                           |
+| Aplicar migrations novas              | `npx prisma migrate dev`                      |
+| Zerar o banco e recriar tudo          | `npx prisma migrate reset`                    |
+| Rodar a API                           | `npm run dev`                                 |
 
 **Rotina normal de trabalho:** `docker compose up -d` → `npm run dev`. Só isso.
 
@@ -538,7 +538,7 @@ Nessa ordem:
 
 ### As migrations estão dessincronizadas
 
-Se o Prisma acusar *drift* ou migrations pendentes e você **não se importa em
+Se o Prisma acusar _drift_ ou migrations pendentes e você **não se importa em
 perder os dados locais** (que são só de teste):
 
 ```bash
@@ -564,10 +564,10 @@ em terminais novos.
 
 ## 📎 Arquivos relacionados
 
-| Arquivo | O que é |
-|---|---|
-| `Back-end/docker-compose.yml` | Definição do container do Postgres |
-| `Back-end/.env.example` | Modelo das variáveis de ambiente (vai para o Git) |
-| `Back-end/.env` | Suas variáveis reais (**não** vai para o Git) |
-| `Back-end/prisma/schema.prisma` | Modelo das tabelas |
-| `Back-end/prisma/migrations/` | Histórico versionado do schema |
+| Arquivo                         | O que é                                           |
+| ------------------------------- | ------------------------------------------------- |
+| `Back-end/docker-compose.yml`   | Definição do container do Postgres                |
+| `Back-end/.env.example`         | Modelo das variáveis de ambiente (vai para o Git) |
+| `Back-end/.env`                 | Suas variáveis reais (**não** vai para o Git)     |
+| `Back-end/prisma/schema.prisma` | Modelo das tabelas                                |
+| `Back-end/prisma/migrations/`   | Histórico versionado do schema                    |

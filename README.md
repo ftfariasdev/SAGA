@@ -1,6 +1,6 @@
-  # 🏫 Sistema de Gestão Escolar - SAGA
+# 🏫 Sistema de Gestão Escolar - SAGA
+
   <img src="SAGA/Front-End/Img/login_img.PNG" alt="Lista de Alunos" />
-  
 
 Sistema completo para gerenciamento de escolas, com funcionalidades robustas de administração de alunos, turmas, professores e matrículas. Ideal para escolas de pequeno e médio porte que desejam informatizar seus processos com uma solução web moderna e escalável.
 
@@ -8,15 +8,15 @@ Sistema completo para gerenciamento de escolas, com funcionalidades robustas de 
 
 ## 🧾 Índice
 
-- [🧠 Sobre o Projeto](#-sobre-o-projeto)  
-- [🛠️ Tecnologias Utilizadas](#-tecnologias-utilizadas)  
-- [📥 Instalação](#-instalação)  
-- [🚀 Como Rodar o Projeto](#-como-rodar-o-projeto)  
-- [📌 Funcionalidades](#-funcionalidades)  
-- [🖼️ Imagens](#-imagens)  
-- [🤝 Contribuições](#-contribuições)  
-- [🧑‍💻 Desenvolvedores](#-desenvovedores)  
-- [📄 Licença](#-licença)  
+- [🧠 Sobre o Projeto](#-sobre-o-projeto)
+- [🛠️ Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [📥 Instalação](#-instalação)
+- [🚀 Como Rodar o Projeto](#-como-rodar-o-projeto)
+- [📌 Funcionalidades](#-funcionalidades)
+- [🖼️ Imagens](#-imagens)
+- [🤝 Contribuições](#-contribuições)
+- [🧑‍💻 Desenvolvedores](#-desenvovedores)
+- [📄 Licença](#-licença)
 
 ---
 
@@ -30,6 +30,7 @@ A estrutura do sistema é modular e escalável, permitindo expansões futuras co
 ## 🛠️ Tecnologias Utilizadas
 
 ### 🔙 Backend
+
 - [Node.js](https://nodejs.org) – Ambiente de execução JavaScript
 - [Express.js](https://expressjs.com) – Framework web minimalista
 - [Prisma ORM](https://www.prisma.io) – ORM moderno e tipado
@@ -38,6 +39,7 @@ A estrutura do sistema é modular e escalável, permitindo expansões futuras co
 - [Dotenv](https://www.npmjs.com/package/dotenv) – Variáveis de ambiente
 
 ### 🎨 Frontend
+
 - HTML5 + CSS3
 - JavaScript Vanilla (ES6+)
 - Layout responsivo com Flexbox/Grid
@@ -56,17 +58,20 @@ depender de serviços na nuvem.
 O resumo, para quem já tem Node.js 22 e Docker instalados:
 
 ### 1️⃣ Clone o repositório
+
 ```bash
 git clone https://github.com/SAGA-TCC/SAGA.git
 cd SAGA/Back-end
 ```
 
 ### 2️⃣ Instale as dependências
+
 ```bash
 npm install
 ```
 
 ### 3️⃣ Configure as variáveis de ambiente
+
 ```bash
 cp .env.example .env     # no Windows: copy .env.example .env
 ```
@@ -82,12 +87,14 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ## 🚀 Como Rodar o Projeto
 
 ### 🐳 Banco de dados
+
 ```bash
 docker compose up -d      # sobe o PostgreSQL 16 em container
 npx prisma migrate dev    # cria as tabelas
 ```
 
 ### 🔌 Backend (API REST)
+
 ```bash
 npm run dev
 ```
@@ -108,6 +115,7 @@ curl -X POST http://localhost:3000/sec/cadSecretaria \
 Depois é só logar com `secretaria@saga.local` / `senha123`.
 
 ### 🌐 Frontend
+
 Abra a pasta `Front-End` no VSCode e inicie o `index.html` com o
 [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
 
@@ -131,13 +139,16 @@ Abra a pasta `Front-End` no VSCode e inicie o `index.html` com o
 
 ## 🖼️ Imagens
 
-### 📋 Chamada  
+### 📋 Chamada
+
 ![Lista de Alunos](https://via.placeholder.com/800x400.png?text=Lista+de+Alunos)
 
-### 🧑 Cadastro de Professores  
+### 🧑 Cadastro de Professores
+
 ![Cadastro de Professores](https://via.placeholder.com/800x400.png?text=Cadastro+de+Professores)
 
-### 🏫 Gerenciamento de Turmas  
+### 🏫 Gerenciamento de Turmas
+
 ![Gerenciamento de Turmas](https://via.placeholder.com/800x400.png?text=Gerenciamento+de+Turmas)
 
 ---
@@ -146,17 +157,17 @@ Abra a pasta `Front-End` no VSCode e inicie o `index.html` com o
 
 Contribuições são bem-vindas! Sinta-se livre para abrir uma _issue_ ou enviar um _pull request_.
 
-1. Fork este repositório  
-2. Crie sua feature (`git checkout -b minha-feature`)  
-3. Commit suas alterações (`git commit -m 'feat: minha nova feature'`)  
-4. Push para a branch (`git push origin minha-feature`)  
-5. Abra um Pull Request  
+1. Fork este repositório
+2. Crie sua feature (`git checkout -b minha-feature`)
+3. Commit suas alterações (`git commit -m 'feat: minha nova feature'`)
+4. Push para a branch (`git push origin minha-feature`)
+5. Abra um Pull Request
 
 ---
 
-## 🧑‍💻 Desenvolvedores 
+## 🧑‍💻 Desenvolvedores
 
-Desenvolvido por [Felipe Farias](https://github.com/Felipe-dev01), Brenno Mello, Jéssica Oliveira e Hugo Rocha.  
+Desenvolvido por [Felipe Farias](https://github.com/Felipe-dev01), Brenno Mello, Jéssica Oliveira e Hugo Rocha.
 
 ---
 
