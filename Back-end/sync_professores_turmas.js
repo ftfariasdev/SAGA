@@ -1,9 +1,7 @@
 // Script para sincronizar vínculos de professores com turmas
 // Este script deve ser executado para garantir que todos os professores vinculados a matérias
 // também estejam vinculados às turmas correspondentes
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from './src/lib/prisma.js';
 
 async function syncProfessoresTurmas() {
     try {

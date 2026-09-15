@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import prisma from "../util/prisma.js";
+import prisma from "../lib/prisma.js";
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from "../../server.js";
 import { OAuth2Client } from 'google-auth-library';

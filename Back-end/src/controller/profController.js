@@ -1,4 +1,4 @@
-import prisma from "../util/prisma.js";
+import prisma from "../lib/prisma.js";
 
 export class ProfController {
     async listarTurmasProf(req, res) {
