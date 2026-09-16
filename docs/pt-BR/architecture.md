@@ -79,7 +79,7 @@ SAGA/
 │   ├── server.js             ponto de entrada
 │   ├── docker-compose.yml    container do PostgreSQL
 │   ├── .env.example          modelo das variáveis de ambiente
-│   └── cadMateria.js, fixMateria.js, sync_professores_turmas.js, baseline.sql  (scripts soltos / legado)
+│   └── cadMateria.js, sync_professores_turmas.js, baseline.sql  (scripts soltos / legado)
 ├── Front-End/                site estático (sem package.json, sem build)
 │   ├── index.html            redireciona para Login/Login.html
 │   ├── Login/  Aluno/  Professor/  Secretaria/   uma pasta por perfil: Page/, Js/, Css/ (css/)
@@ -110,7 +110,7 @@ flowchart TD
     RT -->|rota pública| CTRL
     AUTH -->|JWT válido, preenche req.userId| CTRL["Método do controller<br/>src/controller/*.js"]
     AUTH -->|ausente/inválido| E401["401 JSON"]
-    CTRL --> PR["prisma (src/util/prisma.js)"]
+    CTRL --> PR["prisma (src/lib/prisma.js)"]
     PR --> DB[("PostgreSQL")]
     CTRL --> RES["Resposta JSON"]
 ```
@@ -135,8 +135,7 @@ regras de negócio moram dentro dos controllers — por exemplo, a regra "o prof
 matéria é vinculado a todas as turmas daquele curso" está escrita dentro de
 `SecController.cadMateria` e `editarMateria`.
 
-O **`src/util/prisma.js`** exporta um único `PrismaClient` compartilhado. Os scripts de manutenção
-criam o próprio cliente ([F4] #6).
+O **`src/lib/prisma.js`** exporta um único `PrismaClient` compartilhado. Os scripts importam o cliente dele. ([F4] #6).
 
 ### Routers
 

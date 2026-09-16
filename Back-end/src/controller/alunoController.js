@@ -1,4 +1,4 @@
-import prisma from '../util/prisma.js';
+import prisma from '../lib/prisma.js';
 import { startOfDay, endOfDay } from 'date-fns';
 
 export class AlunoController {

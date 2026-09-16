@@ -79,7 +79,6 @@ Back-end/
 ├── docker-compose.yml           # Container PostgreSQL 16: saga-db, volume saga-pgdata, collation ICU pt-BR
 ├── .env.example                 # Modelo das variáveis de ambiente (vai para o Git) — copie para .env
 ├── sync_professores_turmas.js   # Script de manutenção (veja abaixo)
-├── fixMateria.js                # Script de manutenção legado (veja abaixo)
 ├── cadMateria.js                # Órfão: cópia antiga de secController.cadMateria, não é importado
 ├── baseline.sql                 # Dump SQL em UTF-16 de um schema antigo, não é usado pelo Prisma
 └── node_modules.rar             # Arquivo de ~78 MB commitado por engano
@@ -164,7 +163,7 @@ Definidas no `.env` (copiado de [`.env.example`](../../Back-end/.env.example)).
    ([[S2] #15](https://github.com/ftfariasdev/SAGA/issues/15)).
 3. **O método do controller** lê `req.params`, `req.query`, `req.body` e
    `req.userId`, aplica a regra de negócio e consulta o banco pelo client
-   compartilhado em `src/util/prisma.js`.
+   compartilhado em `src/lib/prisma.js`.
 4. **O controller responde** em JSON. A maioria dos métodos tem o próprio
    `try/catch`, mas alguns não têm (o CRUD de curso no `secController.js` e os
    handlers de login), e um erro neles derruba o processo da API. A chave de erro
@@ -211,7 +210,6 @@ próprio `PrismaClient` e mostram o progresso no console.
 | Script                            | O que faz                                                                                                                                                                                       |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `node sync_professores_turmas.js` | Para cada matéria com professor atribuído, vincula esse professor a todas as turmas do curso da matéria, criando os registros de `professor_turma` que faltam. Pode ser rodado mais de uma vez. |
-| `node fixMateria.js`              | Verificação legada de que a coluna `id_prof` existe em `materia`: cria e depois apaga uma `TEST_MATERIA` usando um **id de curso fixo no código**. Não rode contra dados reais.                 |
 
 **Testes manuais da API:** os arquivos em `tests/` (`routesAluno.http`,
 `routesProf.http`, `routesSec.http`) rodam com a extensão **REST Client** do VS

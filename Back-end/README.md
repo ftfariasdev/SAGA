@@ -79,7 +79,6 @@ Back-end/
 ├── docker-compose.yml           # PostgreSQL 16 container: saga-db, volume saga-pgdata, pt-BR ICU collation
 ├── .env.example                 # Environment template (committed) — copy to .env
 ├── sync_professores_turmas.js   # Maintenance script (see below)
-├── fixMateria.js                # Legacy maintenance script (see below)
 ├── cadMateria.js                # Orphan: old copy of secController.cadMateria, imported nowhere
 ├── baseline.sql                 # UTF-16 SQL dump of an early schema, not used by Prisma
 └── node_modules.rar             # ~78 MB archive committed by mistake
@@ -163,7 +162,7 @@ Defined in `.env` (copied from [`.env.example`](.env.example)).
    ([[S2] #15](https://github.com/ftfariasdev/SAGA/issues/15)).
 3. **The controller method** reads `req.params`, `req.query`, `req.body` and
    `req.userId`, applies the business rules and queries the database through the
-   shared client in `src/util/prisma.js`.
+   shared client in `src/lib/prisma.js`.
 4. **The controller responds** with JSON. Most methods have their own
    `try/catch`, but some don't (the course CRUD in `secController.js` and the
    login handlers), and an error there crashes the API process. The error key
@@ -210,7 +209,6 @@ Run from inside `Back-end/`, with the database up. Both scripts create their own
 | Script                            | What it does                                                                                                                                                                               |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `node sync_professores_turmas.js` | For every subject (`materia`) with a teacher assigned, links that teacher to every class (`turma`) of the subject's course by creating the missing `professor_turma` rows. Safe to re-run. |
-| `node fixMateria.js`              | Legacy check that the `id_prof` column exists on `materia`: it creates and then deletes a `TEST_MATERIA` using a **hardcoded course id**. Don't run it against real data.                  |
 
 **Manual API testing:** the files in `tests/` (`routesAluno.http`,
 `routesProf.http`, `routesSec.http`) can be run with the VS Code **REST Client**

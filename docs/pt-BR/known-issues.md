@@ -402,7 +402,7 @@ não seja pego de surpresa nem construa em cima deles.
 ### Scripts de manutenção criam o próprio cliente Prisma
 
 - **O que acontece:** `Back-end/fixMateria.js:6` e `Back-end/sync_professores_turmas.js:6` chamam
-  `new PrismaClient()`; a API em si usa o `src/util/prisma.js` compartilhado.
+  `new PrismaClient()`; a API em si usa o `src/lib/prisma.js` compartilhado.
 - **Impacto:** baixo — mas é um padrão fácil de copiar para dentro da API por engano.
 - **Task:** [[F4] #6](https://github.com/ftfariasdev/SAGA/issues/6)
 

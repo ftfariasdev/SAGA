@@ -58,7 +58,7 @@ curl http://localhost:8081/health          # {"status":"UP",...}
 
 Caminho de uma requisição: `server.js` → `src/Routes/routes{Geral,Aluno,Prof,Sec}.js` →
 `tokenAuthenticate` (`src/middlewares/authenticate.js`) → classe controller em `src/controller/` →
-Prisma (`src/util/prisma.js`) → PostgreSQL.
+Prisma (`src/lib/prisma.js`) → PostgreSQL.
 
 - Não há camada de serviço nem de repositório: os controllers concentram as regras de negócio e
   chamam o Prisma direto.
