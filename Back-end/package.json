@@ -4,7 +4,9 @@
   "description": "API do SAGA — Sistema de Administração e Gestão Acadêmica",
   "main": "src/index.js",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch server.js",
@@ -29,7 +31,10 @@
     "jsonwebtoken": "^9.0.2",
     "sqlite3": "^5.1.7"
   },
-  "repository": { "type": "git", "url": "git+https://github.com/SAGA-TCC/SAGA.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SAGA-TCC/SAGA.git"
+  },
   "bugs": {
     "url": "https://github.com/HugoSants/AuthenticateNode/issues"
   },
