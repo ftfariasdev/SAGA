@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     headerToolbar: {
       end: 'today prev,next',
       start: 'title'
-    },
+    }
   });
   calendar.render();
 
@@ -23,38 +23,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fetch(`http://localhost:8081/aluno/presencas-dia?data=${data}`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then(presencas => {
-      tableBody.innerHTML = '';
-      if (presencas.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="3">Nenhuma aula encontrada para este dia.</td></tr>';
-      } else {
-        presencas.forEach(item => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((presencas) => {
+        tableBody.innerHTML = '';
+        if (presencas.length === 0) {
+          tableBody.innerHTML =
+            '<tr><td colspan="3">Nenhuma aula encontrada para este dia.</td></tr>';
+        } else {
+          presencas.forEach((item) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
             <td>${item.materia}</td>
             <td>${item.professor}</td>
             <td style="color: ${item.presente ? '#00B000' : '#D00000'}; font-weight: bold;">
               ${item.presente ? 'Presente' : 'Falta'}
             </td>
           `;
-          tableBody.appendChild(tr);
-        });
-      }
-    })
-    .catch(error => {
-      console.error('Erro ao buscar presenças:', error);
-      tableBody.innerHTML = '<tr><td colspan="3">Erro ao carregar dados de frequência.</td></tr>';
-    });
+            tableBody.appendChild(tr);
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar presenças:', error);
+        tableBody.innerHTML = '<tr><td colspan="3">Erro ao carregar dados de frequência.</td></tr>';
+      });
   } else {
     tableBody.innerHTML = '<tr><td colspan="3">Data não informada.</td></tr>';
   }

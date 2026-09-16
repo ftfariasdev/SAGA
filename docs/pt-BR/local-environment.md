@@ -1,5 +1,7 @@
 # 🐳 Ambiente local do SAGA — do zero até a API rodando
 
+🌐 [English](../local-environment.md) | **Português (Brasil)**
+
 Este guia leva qualquer pessoa da equipe de uma máquina limpa até o sistema
 rodando **100% local**, sem depender do Supabase nem de internet.
 
@@ -25,6 +27,7 @@ Postgres, com o mesmo usuário, a mesma senha e o mesmo schema.
 7. [Criando o primeiro usuário](#7-criando-o-primeiro-usuário)
 8. [Rodando a API e o front-end](#8-rodando-a-api-e-o-front-end)
 9. [Comandos do dia a dia](#9-comandos-do-dia-a-dia)
+   - [Ferramentas de qualidade (lint e formatação)](#ferramentas-de-qualidade-lint-e-formatação)
 10. [Resolvendo problemas](#10-resolvendo-problemas)
 
 ---
@@ -35,17 +38,17 @@ Postgres, com o mesmo usuário, a mesma senha e o mesmo schema.
 ┌──────────────────┐      ┌──────────────────┐      ┌────────────────────────┐
 │    Front-End     │ HTTP │       API        │ SQL  │  Container PostgreSQL  │
 │  (Live Server)   │─────▶│  Node + Express  │─────▶│      saga-db :5432     │
-│  127.0.0.1:5500  │      │  localhost:3000  │      │   (volume saga-pgdata) │
+│  127.0.0.1:5500  │      │  localhost:8081  │      │   (volume saga-pgdata) │
 └──────────────────┘      └──────────────────┘      └────────────────────────┘
                                  Prisma ORM
 ```
 
 O que você vai instalar:
 
-| Ferramenta | Para quê | Onde |
-|---|---|---|
-| **Git** | Clonar o repositório | Todos |
-| **Node.js 22 LTS** | Rodar a API | Todos |
+| Ferramenta           | Para quê                      | Onde  |
+| -------------------- | ----------------------------- | ----- |
+| **Git**              | Clonar o repositório          | Todos |
+| **Node.js 22 LTS**   | Rodar a API                   | Todos |
 | **Docker + Compose** | Subir o Postgres em container | Todos |
 
 > ℹ️ **Você não precisa instalar o PostgreSQL na sua máquina.** Ele vem dentro
@@ -58,19 +61,19 @@ O que você vai instalar:
 
 ### Git
 
-| Sistema | Comando |
-|---|---|
-| macOS | `brew install git` (ou já vem com o Xcode Command Line Tools) |
-| Linux Mint | `sudo apt install git` |
-| Windows | Baixe em [git-scm.com](https://git-scm.com/download/win) |
+| Sistema    | Comando                                                       |
+| ---------- | ------------------------------------------------------------- |
+| macOS      | `brew install git` (ou já vem com o Xcode Command Line Tools) |
+| Linux Mint | `sudo apt install git`                                        |
+| Windows    | Baixe em [git-scm.com](https://git-scm.com/download/win)      |
 
 ### Node.js 22 LTS
 
-| Sistema | Comando |
-|---|---|
-| macOS | `brew install node@22` |
+| Sistema    | Comando                                                                                            |
+| ---------- | -------------------------------------------------------------------------------------------------- |
+| macOS      | `brew install node@22`                                                                             |
 | Linux Mint | `curl -fsSL https://deb.nodesource.com/setup_22.x \| sudo -E bash - && sudo apt install -y nodejs` |
-| Windows | Baixe o instalador LTS em [nodejs.org](https://nodejs.org) |
+| Windows    | Baixe o instalador LTS em [nodejs.org](https://nodejs.org)                                         |
 
 Confira no fim:
 
@@ -168,7 +171,7 @@ Confira com `docker compose version`.
 docker run --rm hello-world
 ```
 
-Se aparecer *"Hello from Docker!"*, está pronto.
+Se aparecer _"Hello from Docker!"_, está pronto.
 
 ---
 
@@ -244,7 +247,7 @@ Windows). Você precisa dos dois.
 #### 1. Instale o WSL2
 
 Abra o **PowerShell como administrador** (botão direito no menu Iniciar →
-*Terminal (Admin)*) e rode:
+_Terminal (Admin)_) e rode:
 
 ```powershell
 wsl --install
@@ -269,7 +272,7 @@ Baixe em [docker.com/products/docker-desktop](https://www.docker.com/products/do
 e instale mantendo a opção **"Use WSL 2 instead of Hyper-V"** marcada.
 
 Abra o Docker Desktop e espere o ícone da baleia, no canto inferior esquerdo,
-ficar **verde** (*Engine running*). Em *Settings → General*, confirme que
+ficar **verde** (_Engine running_). Em _Settings → General_, confirme que
 **"Start Docker Desktop when you sign in"** está ligado.
 
 > ⚠️ O Docker Desktop precisa estar **aberto** para os comandos funcionarem. Se
@@ -293,7 +296,7 @@ A partir daqui os comandos são iguais nos três sistemas.
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/SAGA-TCC/SAGA.git
+git clone https://github.com/ftfariasdev/SAGA.git
 cd SAGA/Back-end
 ```
 
@@ -324,6 +327,10 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 Cole o resultado na linha `JWT_SECRET=`. Os valores de banco (`saga`/`saga`) já
 vêm prontos e não precisam ser alterados — são credenciais de desenvolvimento
 local, o banco não fica exposto para fora da sua máquina.
+
+> ⚠️ **Mantenha `PORT=8081`.** O front-end chama `http://localhost:8081` fixo em
+> todos os scripts. Com qualquer outra porta a API sobe, mas as telas não
+> conseguem falar com ela.
 
 > 🔒 O `.env` está no `.gitignore` e **nunca** deve ser commitado. O
 > `.env.example` é que vai para o Git — se você adicionar uma variável nova,
@@ -356,7 +363,7 @@ um teste de conexão automático antes de considerar o banco pronto.
 
 ## 6. Criando as tabelas com o Prisma
 
-O banco subiu vazio. As tabelas são criadas pelas *migrations* que já estão
+O banco subiu vazio. As tabelas são criadas pelas _migrations_ que já estão
 versionadas em `Back-end/prisma/migrations/`:
 
 ```bash
@@ -371,8 +378,9 @@ npx prisma studio
 ```
 
 Ela abre em `http://localhost:5555` e lista as tabelas (`user`, `aluno`,
-`professor`, `turma`, `nota`…). É por aqui que você cria um usuário de teste
-para conseguir fazer login.
+`professor`, `turma`, `nota`…). Use-a para inspecionar e conferir dados — o
+primeiro usuário é criado pela API, na [próxima seção](#7-criando-o-primeiro-usuário),
+porque a senha precisa ser gravada com hash.
 
 > 💡 **`migrate dev` vs `migrate deploy`:** use `migrate dev` no dia a dia — ele
 > aplica o que falta e avisa se você mudou o `schema.prisma`. O `migrate deploy`
@@ -391,7 +399,7 @@ justamente para resolver isso. Com a API rodando (`npm run dev`), em outro
 terminal:
 
 ```bash
-curl -X POST http://localhost:3000/sec/cadSecretaria \
+curl -X POST http://localhost:8081/sec/cadSecretaria \
   -H "Content-Type: application/json" \
   -d '{
     "nome": "Secretaria Teste",
@@ -407,7 +415,7 @@ curl -X POST http://localhost:3000/sec/cadSecretaria \
 No Windows, use o PowerShell:
 
 ```powershell
-Invoke-RestMethod -Uri http://localhost:3000/sec/cadSecretaria -Method Post `
+Invoke-RestMethod -Uri http://localhost:8081/sec/cadSecretaria -Method Post `
   -ContentType "application/json" `
   -Body '{"nome":"Secretaria Teste","email":"secretaria@saga.local","senha":"senha123","dt_nasc":"2000-01-15T00:00:00.000Z","telefone":"11999990000","cpf":"00000000191","ft_perfil":""}'
 ```
@@ -424,6 +432,10 @@ Pronto — agora você faz login no front-end com `secretaria@saga.local` /
 > qualquer pessoa poderia criar uma conta de secretaria. Na sua máquina isso não
 > é problema, mas **precisa ser tratado antes de qualquer publicação** do sistema.
 
+> 🔜 Fechar essa rota pública está planejado em
+> [[C1] #1](https://github.com/ftfariasdev/SAGA/issues/1). Quando essa task for
+> entregue, este passo de bootstrap vai mudar — confira a issue antes de seguir.
+
 ---
 
 ## 8. Rodando a API e o front-end
@@ -434,11 +446,11 @@ Pronto — agora você faz login no front-end com `secretaria@saga.local` /
 npm run dev
 ```
 
-Deve aparecer `Servidor rodando na porta 3000!`. Teste em outro terminal:
+Deve aparecer `Servidor rodando na porta 8081!`. Teste em outro terminal:
 
 ```bash
-curl http://localhost:3000/health
-# {"status":"OK","message":"Server is running"}
+curl http://localhost:8081/health
+# {"status":"UP","timestamp":"2026-09-10T13:00:00.000Z","version":"1.0.0"}
 ```
 
 ### Front-end
@@ -450,7 +462,8 @@ No **VS Code**, instale a extensão **Live Server**, abra a pasta `Front-End`,
 clique com o botão direito em `index.html` → **Open with Live Server**.
 
 > ⚠️ Abrir o `index.html` com dois cliques (`file://`) **não funciona** — o
-> navegador bloqueia as chamadas para a API por CORS.
+> navegador bloqueia as chamadas para a API por CORS. `http://localhost:5500`
+> também não: o CORS aceita exatamente `127.0.0.1`.
 
 ---
 
@@ -458,24 +471,51 @@ clique com o botão direito em `index.html` → **Open with Live Server**.
 
 Todos rodados de dentro de `SAGA/Back-end`:
 
-| O quê | Comando |
-|---|---|
-| Ligar o banco | `docker compose up -d` |
-| Desligar o banco (mantém os dados) | `docker compose stop` |
-| Remover o container (mantém os dados) | `docker compose down` |
-| **Apagar tudo, inclusive os dados** | `docker compose down -v` |
-| Ver se está rodando | `docker compose ps` |
-| Ver os logs do Postgres | `docker compose logs -f db` |
-| Abrir o `psql` dentro do container | `docker compose exec db psql -U saga -d saga` |
-| Interface visual do banco | `npx prisma studio` |
-| Aplicar migrations novas | `npx prisma migrate dev` |
-| Zerar o banco e recriar tudo | `npx prisma migrate reset` |
-| Rodar a API | `npm run dev` |
+| O quê                                 | Comando                                       |
+| ------------------------------------- | --------------------------------------------- |
+| Ligar o banco                         | `docker compose up -d`                        |
+| Desligar o banco (mantém os dados)    | `docker compose stop`                         |
+| Remover o container (mantém os dados) | `docker compose down`                         |
+| **Apagar tudo, inclusive os dados**   | `docker compose down -v`                      |
+| Ver se está rodando                   | `docker compose ps`                           |
+| Ver os logs do Postgres               | `docker compose logs -f db`                   |
+| Abrir o `psql` dentro do container    | `docker compose exec db psql -U saga -d saga` |
+| Interface visual do banco             | `npx prisma studio`                           |
+| Aplicar migrations novas              | `npx prisma migrate dev`                      |
+| Zerar o banco e recriar tudo          | `npx prisma migrate reset`                    |
+| Rodar a API                           | `npm run dev`                                 |
 
 **Rotina normal de trabalho:** `docker compose up -d` → `npm run dev`. Só isso.
 
 No **macOS com Colima**, lembre-se de rodar `colima start` antes, depois de cada
 reinicialização do computador.
+
+### Ferramentas de qualidade (lint e formatação)
+
+ESLint e Prettier ficam na **raiz do repositório** (pasta `SAGA/`), não em
+`Back-end`. Instale uma vez:
+
+```bash
+cd ..          # de SAGA/Back-end para SAGA/
+npm install
+```
+
+| O quê                                 | Comando                |
+| ------------------------------------- | ---------------------- |
+| Procurar erros de código              | `npm run lint`         |
+| Corrigir o que for automático         | `npm run lint:fix`     |
+| Verificar a formatação (JS, JSON, MD) | `npm run format:check` |
+| Formatar                              | `npm run format`       |
+
+Os mesmos checks rodam no GitHub Actions a cada push e pull request para `main`
+e `develop` — rode-os antes de abrir o PR.
+
+> 🪟 **Windows:** com `core.autocrlf=true` (o padrão do Git for Windows), os
+> arquivos chegam na sua máquina com quebra de linha CRLF e o `format:check`
+> acusa arquivos que estão corretos. Para confirmar que a diferença é só a
+> quebra de linha, rode `npx prettier --check --end-of-line auto .`. O CI roda
+> em Linux e é ele quem vale. Prefira formatar só os arquivos que você alterou
+> (`npx prettier --write caminho/do/arquivo`).
 
 ---
 
@@ -536,9 +576,18 @@ Nessa ordem:
    `POSTGRES_*` no mesmo `.env`.
 4. `docker compose logs db` para ver o que o Postgres reclamou.
 
+### O front-end diz que não consegue conectar ao servidor
+
+Nessa ordem:
+
+1. A API está rodando? `curl http://localhost:8081/health` precisa responder.
+2. O `.env` está com `PORT=8081`? O front não conhece outra porta.
+3. O front está aberto em `http://127.0.0.1:5500` (e não em `localhost:5500` ou
+   `file://`)? O console do navegador (F12) mostra erro de CORS quando não está.
+
 ### As migrations estão dessincronizadas
 
-Se o Prisma acusar *drift* ou migrations pendentes e você **não se importa em
+Se o Prisma acusar _drift_ ou migrations pendentes e você **não se importa em
 perder os dados locais** (que são só de teste):
 
 ```bash
@@ -564,10 +613,18 @@ em terminais novos.
 
 ## 📎 Arquivos relacionados
 
-| Arquivo | O que é |
-|---|---|
-| `Back-end/docker-compose.yml` | Definição do container do Postgres |
-| `Back-end/.env.example` | Modelo das variáveis de ambiente (vai para o Git) |
-| `Back-end/.env` | Suas variáveis reais (**não** vai para o Git) |
-| `Back-end/prisma/schema.prisma` | Modelo das tabelas |
-| `Back-end/prisma/migrations/` | Histórico versionado do schema |
+| Arquivo                         | O que é                                               |
+| ------------------------------- | ----------------------------------------------------- |
+| `Back-end/docker-compose.yml`   | Definição do container do Postgres                    |
+| `Back-end/.env.example`         | Modelo das variáveis de ambiente (vai para o Git)     |
+| `Back-end/.env`                 | Suas variáveis reais (**não** vai para o Git)         |
+| `Back-end/prisma/schema.prisma` | Modelo das tabelas                                    |
+| `Back-end/prisma/migrations/`   | Histórico versionado do schema                        |
+| `package.json` (raiz)           | Scripts `lint`, `lint:fix`, `format` e `format:check` |
+| `eslint.config.js` (raiz)       | Regras do ESLint para back-end e front-end            |
+| `.prettierrc` (raiz)            | Regras de formatação do Prettier                      |
+| `.github/workflows/`            | Checks de lint e formatação no GitHub Actions         |
+
+Próximos passos: [README do Back-end](back-end.md) ·
+[README do Front-End](front-end.md) ·
+[Como contribuir](CONTRIBUTING.md)

@@ -1,36 +1,36 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const ctx = document.getElementById("freqChart").getContext("2d");
+document.addEventListener('DOMContentLoaded', function () {
+  const ctx = document.getElementById('freqChart').getContext('2d');
 
   new Chart(ctx, {
-    type: "pie", 
+    type: 'pie',
     data: {
-      labels: ["Presença", "Ausência"],
+      labels: ['Presença', 'Ausência'],
       datasets: [
         {
           data: [50, 50],
-          backgroundColor: ["#00B000", "#D00000"],
-          borderWidth: 0,
-        },
-      ],
+          backgroundColor: ['#00B000', '#D00000'],
+          borderWidth: 0
+        }
+      ]
     },
     options: {
-       animation: {
-      duration: 1250
+      animation: {
+        duration: 1250
       },
       plugins: {
         tooltip: { enabled: false },
         legend: { display: false },
         datalabels: {
-          color: "white",
+          color: 'white',
           font: {
-            weight: "bold",
-            size: 18,
+            weight: 'bold',
+            size: 18
           },
-          formatter: (value, context) => value + "%",
-        },
-      },
+          formatter: (value) => value + '%'
+        }
+      }
     },
-    plugins: [ChartDataLabels],
+    plugins: [ChartDataLabels]
   });
 });
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
       end: 'today prev,next',
       start: 'title'
     },
-    dateClick: function(info) {
+    dateClick: function (info) {
       window.location.href = `freq2.html?data=${info.dateStr}`;
     }
   });
@@ -52,12 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // Buscar frequência geral do aluno
   fetch('/aluno/listMateria', {
     headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
+      Authorization: 'Bearer ' + localStorage.getItem('token')
     }
   })
-  .then(res => res.json())
-  .then(data => {
-    // Aqui você pode calcular a frequência geral e atualizar o gráfico
-    // Exemplo: atualizar o gráfico com os dados reais
-  });
+    .then((res) => res.json())
+    .then(() => {
+      // Aqui você pode calcular a frequência geral e atualizar o gráfico
+      // Exemplo: atualizar o gráfico com os dados reais
+    });
 });
