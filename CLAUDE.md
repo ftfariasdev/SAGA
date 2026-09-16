@@ -57,7 +57,7 @@ or `curl`).
 
 Request path: `server.js` → `src/Routes/routes{Geral,Aluno,Prof,Sec}.js` → `tokenAuthenticate`
 (`src/middlewares/authenticate.js`) → controller class in `src/controller/` → Prisma
-(`src/util/prisma.js`) → PostgreSQL.
+(`src/lib/prisma.js`) → PostgreSQL.
 
 - There is no service or repository layer: controllers hold the business rules and call Prisma
   directly.

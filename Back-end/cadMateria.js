@@ -1,6 +1,6 @@
 // Função cadMateria corrigida
 
-import prisma from './src/util/prisma.js';
+import prisma from './src/lib/prisma.js';
 
 export async function cadMateria(req, res) {
   try {

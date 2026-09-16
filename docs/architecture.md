@@ -79,7 +79,7 @@ SAGA/
 │   ├── server.js             entry point
 │   ├── docker-compose.yml    PostgreSQL container
 │   ├── .env.example          environment variable template
-│   └── cadMateria.js, fixMateria.js, sync_professores_turmas.js, baseline.sql  (loose scripts / legacy)
+│   └── cadMateria.js, sync_professores_turmas.js, baseline.sql  (loose scripts / legacy)
 ├── Front-End/                static site (no package.json, no build)
 │   ├── index.html            redirects to Login/Login.html
 │   ├── Login/  Aluno/  Professor/  Secretaria/   one folder per role: Page/, Js/, Css/ (css/)
@@ -110,7 +110,7 @@ flowchart TD
     RT -->|public route| CTRL
     AUTH -->|valid JWT, sets req.userId| CTRL["Controller method<br/>src/controller/*.js"]
     AUTH -->|missing/invalid| E401["401 JSON"]
-    CTRL --> PR["prisma (src/util/prisma.js)"]
+    CTRL --> PR["prisma (src/lib/prisma.js)"]
     PR --> DB[("PostgreSQL")]
     CTRL --> RES["JSON response"]
 ```
@@ -135,8 +135,7 @@ rules live inside controllers — for example, the rule "a professor assigned to
 linked to every class of that course" is implemented inline in `SecController.cadMateria` and
 `editarMateria`.
 
-**`src/util/prisma.js`** exports one shared `PrismaClient`. The maintenance scripts create their
-own client ([F4] #6).
+**`src/lib/prisma.js`** exports one shared `PrismaClient`. The maintenance scripts import the client from this file. ([F4] #6).
 
 ### Routers
 
