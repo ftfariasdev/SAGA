@@ -1334,29 +1334,5 @@ export class SecController {
         }
     }
 
-    async listarProfessores(req, res) {
-        try {
-            const professores = await prisma.professor.findMany({
-                include: {
-                    user: {
-                        select: {
-                            id_user: true,
-                            nome: true,
-                            email: true
-                        }
-                    }
-                }
-            });
-            // Retorna apenas os dados necessários
-            const lista = professores.map(p => ({
-                id_professor: p.id_professor,
-                nome: p.user.nome,
-                email: p.user.email
-            }));
-            return res.json(lista);
-        } catch (error) {
-            return res.status(500).json({ erro: "Erro ao listar professores", detalhes: error.message });
-        }
-    }
 }
 
