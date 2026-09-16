@@ -1,4 +1,4 @@
-import prisma from '../lib/prisma.js'
+import prisma from '../lib/prisma.js';
 
 export class commonController {
   async info(req, res) {
