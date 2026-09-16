@@ -135,7 +135,7 @@ regras de negócio moram dentro dos controllers — por exemplo, a regra "o prof
 matéria é vinculado a todas as turmas daquele curso" está escrita dentro de
 `SecController.cadMateria` e `editarMateria`.
 
-O **`src/lib/prisma.js`** exporta um único `PrismaClient` compartilhado. Os scripts importam o cliente  dele. ([F4] #6).
+O **`src/lib/prisma.js`** exporta um único `PrismaClient` compartilhado. Os scripts importam o cliente dele. ([F4] #6).
 
 ### Routers
 
