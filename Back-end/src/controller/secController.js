@@ -1,6 +1,6 @@
 import prisma from '../lib/prisma.js';
 import { Prisma } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export class SecController {
   // => Curso
@@ -214,6 +214,43 @@ export class SecController {
     return res.status(204).json(materia);
   }
 
+  // Lista todos os professores disponíveis para vinculação
+  async listarProfessores(req, res) {
+    try {
+      const professores = await prisma.professor.findMany({
+        include: {
+          user: {
+            select: {
+              id_user: true,
+              nome: true,
+              email: true,
+              telefone: true,
+              ft_perfil: true
+            }
+          }
+        }
+      });
+
+      // Formatar os dados para facilitar o uso no frontend
+      const professoresFormatados = professores.map((prof) => ({
+        id_professor: prof.id_professor,
+        id_user: prof.user.id_user,
+        nome: prof.user.nome,
+        email: prof.user.email,
+        telefone: prof.user.telefone,
+        foto: prof.user.ft_perfil
+      }));
+
+      return res.status(200).json(professoresFormatados);
+    } catch (error) {
+      console.error('Erro ao listar professores:', error);
+      return res.status(500).json({
+        erro: 'Erro ao listar professores',
+        detalhes: error.message
+      });
+    }
+  }
+
   // => Usuario
 
   async criarUsuario(req, res) {
@@ -224,7 +261,8 @@ export class SecController {
     if (emailHsh) {
       return res.json({ error: 'Email já cadastrado' });
     }
-    const senhaHash = await bcrypt.hash(senha, 10);
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds);
 
     await prisma.user.create({
       data: {
@@ -238,6 +276,7 @@ export class SecController {
         tipo
       }
     });
+
     return res.json({ message: 'Cadastro concluido com sucesso' });
   }
 
@@ -263,7 +302,8 @@ export class SecController {
       return res.json({ error: 'CPF já cadastrado' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, 10);
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds); // cost vem do env, não do código
     try {
       // Cria o usuário
       const user = await prisma.user.create({
@@ -319,7 +359,8 @@ export class SecController {
       return res.json({ error: 'CPF já cadastrado' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, 10);
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds); // cost vem do env, não do código
     try {
       // Cria o usuário
       const user = await prisma.user.create({
@@ -376,7 +417,8 @@ export class SecController {
       return res.json({ error: 'CPF já cadastrado' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, 10);
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds); // cost vem do env, não do código
     try {
       // Cria o usuário
       const user = await prisma.user.create({
@@ -1292,31 +1334,6 @@ export class SecController {
         erro: 'Erro ao remover professor da turma',
         detalhes: error.message
       });
-    }
-  }
-
-  async listarProfessores(req, res) {
-    try {
-      const professores = await prisma.professor.findMany({
-        include: {
-          user: {
-            select: {
-              id_user: true,
-              nome: true,
-              email: true
-            }
-          }
-        }
-      });
-      // Retorna apenas os dados necessários
-      const lista = professores.map((p) => ({
-        id_professor: p.id_professor,
-        nome: p.user.nome,
-        email: p.user.email
-      }));
-      return res.json(lista);
-    } catch (error) {
-      return res.status(500).json({ erro: 'Erro ao listar professores', detalhes: error.message });
     }
   }
 }
