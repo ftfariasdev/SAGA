@@ -1,11 +1,6 @@
 import prisma from '../lib/prisma.js';
 import { Prisma } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
-
-dotenv.config({
-  path: '../../.env'
-});
 
 export class SecController {
   // => Curso
@@ -266,7 +261,8 @@ export class SecController {
     if (emailHsh) {
       return res.json({ error: 'Email já cadastrado' });
     }
-    const senhaHash = await bcrypt.hash(senha, Number(process.env.BCRYPT_ROUNDS));
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds);
 
     await prisma.user.create({
       data: {
@@ -280,7 +276,7 @@ export class SecController {
         tipo
       }
     });
-    console.log('Cadastro concluido com sucesso');
+
     return res.json({ message: 'Cadastro concluido com sucesso' });
   }
 
@@ -306,7 +302,8 @@ export class SecController {
       return res.json({ error: 'CPF já cadastrado' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, Number(process.env.BCRYPT_ROUNDS)); // cost vem do env, não do código
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds); // cost vem do env, não do código
     try {
       // Cria o usuário
       const user = await prisma.user.create({
@@ -330,7 +327,6 @@ export class SecController {
         }
       });
 
-      console.log('Cadastro de aluno concluído com sucesso');
       return res.json({ message: 'Cadastro de aluno concluído com sucesso' });
     } catch (error) {
       console.error('Erro ao cadastrar aluno:', error);
@@ -363,7 +359,8 @@ export class SecController {
       return res.json({ error: 'CPF já cadastrado' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, Number(process.env.BCRYPT_ROUNDS)); // cost vem do env, não do código
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds); // cost vem do env, não do código
     try {
       // Cria o usuário
       const user = await prisma.user.create({
@@ -386,7 +383,6 @@ export class SecController {
         }
       });
 
-      console.log('Cadastro de professor concluído com sucesso');
       return res.json({ message: 'Cadastro de professor concluído com sucesso' });
     } catch (error) {
       console.error('Erro ao cadastrar professor:', error);
@@ -421,7 +417,8 @@ export class SecController {
       return res.json({ error: 'CPF já cadastrado' });
     }
 
-    const senhaHash = await bcrypt.hash(senha, Number(process.env.BCRYPT_ROUNDS)); // cost vem do env, não do código
+    const bcryptRounds = Number.parseInt(process.env.BCRYPT_ROUNDS ?? '12', 10) || 12;
+    const senhaHash = await bcrypt.hash(senha, bcryptRounds); // cost vem do env, não do código
     try {
       // Cria o usuário
       const user = await prisma.user.create({
@@ -442,7 +439,6 @@ export class SecController {
           id_user: user.id_user
         }
       });
-      console.log('Cadastro de secretaria concluído com sucesso');
       return res.json({ message: 'Cadastro de secretaria concluído com sucesso' });
     } catch (error) {
       console.error('Erro ao cadastrar secretaria:', error);

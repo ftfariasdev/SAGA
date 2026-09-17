@@ -2,7 +2,7 @@
   "name": "saga-api",
   "version": "1.0.0",
   "description": "API do SAGA — Sistema de Administração e Gestão Acadêmica",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -35,10 +35,6 @@
     "type": "git",
     "url": "git+https://github.com/SAGA-TCC/SAGA.git"
   },
-  "bugs": {
-    "url": "https://github.com/HugoSants/AuthenticateNode/issues"
-  },
-  "homepage": "https://github.com/HugoSants/AuthenticateNode#readme",
   "devDependencies": {
     "prisma": "^6.6.0"
   }
